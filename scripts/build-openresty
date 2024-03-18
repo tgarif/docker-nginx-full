@@ -8,6 +8,13 @@ RESET='\E[0m'
 
 echo -e "${BLUE}❯ ${CYAN}Building OpenResty ${YELLOW}${OPENRESTY_VERSION} with nginx_http_geoip2 module...${RESET}"
 
+cd /opt
+git clone --recursive https://github.com/google/ngx_brotli.git
+cd ngx_brotli/deps/brotli
+mkdir out && cd out
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" -DCMAKE_CXX_FLAGS="-Ofast -m64 -march=native -mtune=native -flto -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections" -DCMAKE_INSTALL_PREFIX=./installed ..
+cmake --build . --config Release --target brotlienc
+
 cd /tmp
 wget "https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz"
 tar -xzf openresty-${OPENRESTY_VERSION}.tar.gz
@@ -42,6 +49,7 @@ cd /tmp/openresty
 	--with-http_gzip_static_module \
 	--with-http_mp4_module \
 	--with-http_random_index_module \
+  --with-http_v3_module \
 	--with-http_realip_module \
 	--with-http_secure_link_module \
 	--with-http_slice_module \
@@ -55,8 +63,9 @@ cd /tmp/openresty
 	--with-stream_realip_module \
 	--with-stream_ssl_module \
 	--with-stream_ssl_preread_module \
-	--add-dynamic-module=/tmp/openresty/ngx_http_geoip2_module
+	--add-dynamic-module=/tmp/openresty/ngx_http_geoip2_module \
+  --add-module=/opt/ngx_brotli
 
-make -j2
+make -j$(nproc)
 
 echo -e "${BLUE}❯ ${GREEN}OpenResty build completed${RESET}"
