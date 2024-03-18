@@ -6,11 +6,11 @@ YELLOW='\E[1;33m'
 GREEN='\E[1;32m'
 RESET='\E[0m'
 
-REGISTRY=${REGISTRY:-docker.jc21.com/}
-DOCKER_IMAGE="${REGISTRY}jc21/nginx-full"
+# REGISTRY=${REGISTRY:-docker.tgarif.com/}
+DOCKER_IMAGE="${REGISTRY}tgarif/nginx-full"
 PLATFORMS=linux/amd64,linux/arm64,linux/arm/7
 
-export OPENRESTY_VERSION=1.21.4.3
+export OPENRESTY_VERSION=1.25.3.1
 export CROWDSEC_OPENRESTY_BOUNCER_VERSION=0.1.7
 export LUA_VERSION=5.1.5
 export LUAROCKS_VERSION=3.3.1

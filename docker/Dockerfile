@@ -20,7 +20,9 @@ RUN apt-get update \
 	wget \
 	zlib1g-dev \
 	git \
-	libmaxminddb-dev
+	libmaxminddb-dev \
+  llvm \
+  file
 
 # Lua build
 COPY ./scripts/build-lua /tmp/build-lua
@@ -62,6 +64,8 @@ RUN apt-get update \
 	wget \
 	xz-utils \
 	libmaxminddb-dev \
+  llvm \
+  file \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/cache/* /var/log/* /tmp/* /var/lib/dpkg/status-old
