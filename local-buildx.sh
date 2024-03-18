@@ -8,7 +8,7 @@ RESET='\E[0m'
 
 # REGISTRY=${REGISTRY:-docker.jc21.com/}
 DOCKER_IMAGE="${REGISTRY}tgarif/nginx-full"
-PLATFORMS=linux/amd64,linux/arm64,linux/arm/7
+PLATFORMS=linux/amd64
 
 export OPENRESTY_VERSION=1.25.3.1
 export CROWDSEC_OPENRESTY_BOUNCER_VERSION=0.1.7
