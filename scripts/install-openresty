@@ -9,7 +9,7 @@ RESET='\E[0m'
 echo -e "${BLUE}❯ ${CYAN}Installing OpenResty ${YELLOW}${OPENRESTY_VERSION}...${RESET}"
 
 cd /tmp/openresty
-make install
+make install -j$(nproc)
 rm -rf /tmp/openresty
 
 echo -e "${BLUE}❯ ${GREEN}OpenResty install completed${RESET}"

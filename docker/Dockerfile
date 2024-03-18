@@ -20,7 +20,8 @@ RUN apt-get update \
 	wget \
 	zlib1g-dev \
 	git \
-	libmaxminddb-dev
+	libmaxminddb-dev \
+  cmake
 
 # Lua build
 COPY ./scripts/build-lua /tmp/build-lua
@@ -72,6 +73,9 @@ COPY ./files/.bashrc /root/.bashrc
 COPY --from=nginxbuilder /tmp/lua /tmp/lua
 COPY --from=nginxbuilder /tmp/luarocks /tmp/luarocks
 COPY ./scripts/install-lua /tmp/install-lua
+
+# Copy brotli module
+COPY --from=nginxbuilder /opt/ngx_brotli /opt/ngx_brotli
 
 # Copy openresty build from first image
 COPY --from=nginxbuilder /tmp/openresty /tmp/openresty
